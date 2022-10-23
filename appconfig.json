@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DbManagement": "Server=DESKTOP-9CVRRHV;Database=LabsApplicationDb;Trusted_Connection=True;Encrypt=False;"
+  }
+}
