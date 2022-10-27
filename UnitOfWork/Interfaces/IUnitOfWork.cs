@@ -10,9 +10,9 @@ namespace LabsApplication.UnitOfWork.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<Product> ProductRepository { get; }
+        IRepository<Product> Products{ get; }
 
-        IRepository<Customer> CustomerRepository { get; }
+        IRepository<Customer> Customers { get; }
 
         void Complete();
     }

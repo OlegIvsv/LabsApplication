@@ -18,7 +18,7 @@ namespace LabsApplication.UnitOfWork.Interfaces
 
         IList<TEntity> List();
 
-        IList<TEntity> List(Expression<Func<TEntity, bool>> expression);
+        IList<TEntity> List(Func<TEntity, bool> expression);
 
         void Update(TEntity entity);
     }

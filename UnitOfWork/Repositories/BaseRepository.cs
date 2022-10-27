@@ -41,7 +41,7 @@ namespace LabsApplication.UnitOfWork.Repositories
             return dbContext.Set<TEntity>().ToList();
         }
 
-        public IList<TEntity> List(Expression<Func<TEntity, bool>> expression)
+        public IList<TEntity> List(Func<TEntity, bool> expression)
         {
             return dbContext.Set<TEntity>()
                 .Where(expression)

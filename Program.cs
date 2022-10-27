@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LabsApplication.AdoNet;
+using LabsApplication.UnitOfWork.Repositories;
+using System;
 
 namespace LabsApplication
 {
@@ -6,7 +8,13 @@ namespace LabsApplication
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string cs = "Server=DESKTOP-9CVRRHV;Database=LabsApplicationDb;Trusted_Connection=True;Encrypt=False;";
+            var repo = new OrderRepositoryAdo(cs);
+
+            foreach (var item in repo.List())
+            {
+                Console.WriteLine(item.Id + " | " + item.CreationTime + " | " +item.CustomerId);
+            }
         }
     }
 }
