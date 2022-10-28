@@ -1,4 +1,5 @@
-﻿using LabsApplication.UnitOfWork.EF.Models;
+﻿using LabsApplication.DTOModels;
+using LabsApplication.UnitOfWork.EF.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,13 @@ namespace LabsApplication.AdoNet
 
         public override void Delete(ProducerDTO entity)
         {
+            this.Delete(entity.Id);
+        }
+
+        public override void Delete(int id)
+        {
             string text = "delete Producers where Id = @id";
-            var parameters = new SqlParameter[] { new SqlParameter("@id", entity.Id) };
+            var parameters = new SqlParameter[] { new SqlParameter("@id", id) };
             Execute(text, parameters);
         }
 

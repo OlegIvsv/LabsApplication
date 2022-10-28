@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LabsApplication.UnitOfWork.EF.Models
+namespace LabsApplication.DTOModels
 {
     public class OrderDTO
     {

@@ -12,6 +12,8 @@ namespace LabsApplication.UnitOfWork.Interfaces
     {
         void Delete(TEntity entity);
 
+        void Delete(int id);
+
         TEntity Get(int id);
 
         void Insert(TEntity entity);

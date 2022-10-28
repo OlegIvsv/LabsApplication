@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using LabsApplication.UnitOfWork.Interfaces;
+using LabsApplication.DTOModels;
 
 namespace LabsApplication.UnitOfWork.Repositories
 {
@@ -28,29 +29,29 @@ namespace LabsApplication.UnitOfWork.Repositories
 
         public void Delete(ProducerDTO entity)
         {
-            base.BaseDelete(mapper.Map<Producer>(entity));
+            base.Delete(mapper.Map<Producer>(entity));
         }
 
         public ProducerDTO Get(int id)
         {
-            return mapper.Map<ProducerDTO>(base.BaseGet(id));
+            return mapper.Map<ProducerDTO>(base.Get(id));
         }
 
         public void Insert(ProducerDTO entity)
         {
-            base.BaseInsert(mapper.Map<ProducerDTO, Producer>(entity));
+            base.Insert(mapper.Map<ProducerDTO, Producer>(entity));
         }
 
         public IList<ProducerDTO> List()
         {
-            return base.BaseList()
+            return base.List()
                 .Select(c => mapper.Map<ProducerDTO>(c))
                 .ToList();
         }
 
         public IList<ProducerDTO> List(Func<ProducerDTO, bool> expression)
         {
-            return base.BaseList()
+            return base.List()
                 .Select(c => mapper.Map<Producer, ProducerDTO>(c))
                 .Where(expression)
                 .ToList();

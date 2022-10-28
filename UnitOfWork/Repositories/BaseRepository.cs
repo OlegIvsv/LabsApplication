@@ -19,29 +19,37 @@ namespace LabsApplication.UnitOfWork.Repositories
             this.dbContext = dbContext;
         }
 
-        public void BaseDelete(TEntity entity)
+        public void Delete(TEntity entity)
         {
             dbContext.Set<TEntity>().Remove(entity);
             dbContext.SaveChanges();
         }
 
-        public TEntity BaseGet(int id)
+        public void Delete(int id)
+        {
+            var entity = dbContext.Set<TEntity>().Find(id);
+            if(entity != null)
+                dbContext.Set<TEntity>().Remove(entity);
+            dbContext.SaveChanges();
+        }
+
+        public TEntity Get(int id)
         {
             return dbContext.Set<TEntity>().Find(id);
         }
 
-        public void BaseInsert(TEntity entity)
+        public void Insert(TEntity entity)
         {
             dbContext.Set<TEntity>().Add(entity);
             dbContext.SaveChanges();
         }
 
-        public IList<TEntity> BaseList()
+        public IList<TEntity> List()
         {
             return dbContext.Set<TEntity>().ToList();
         }
 
-        public IList<TEntity> BaseList(Func<TEntity, bool> expression)
+        public IList<TEntity> List(Func<TEntity, bool> expression)
         {
             return dbContext.Set<TEntity>()
                 .Where(expression)

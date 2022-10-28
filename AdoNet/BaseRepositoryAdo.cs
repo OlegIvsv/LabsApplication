@@ -88,6 +88,7 @@ namespace LabsApplication.AdoNet
 
 
         public abstract void Delete(TEntity entity);
+        public abstract void Delete(int id);
         public abstract TEntity Get(int id);
         public abstract void Insert(TEntity entity);
         public abstract IList<TEntity> List();

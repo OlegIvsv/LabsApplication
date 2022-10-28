@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LabsApplication.DTOModels;
 using LabsApplication.UnitOfWork.EF;
 using LabsApplication.UnitOfWork.EF.Models;
 using LabsApplication.UnitOfWork.Interfaces;
@@ -25,31 +26,37 @@ namespace LabsApplication.UnitOfWork.Repositories
             mapper = new Mapper(config);
         }
 
+
         public void Delete(ProductDTO entity)
         {
-            base.BaseDelete(mapper.Map<Product>(entity));
+            base.Delete(mapper.Map<Product>(entity));
+        }
+
+        public void Delete(int id)
+        {
+            base.Delete(id);
         }
 
         public ProductDTO Get(int id)
         {
-            return mapper.Map<ProductDTO>(base.BaseGet(id));
+            return mapper.Map<ProductDTO>(base.Get(id));
         }
 
         public void Insert(ProductDTO entity)
         {
-            base.BaseInsert(mapper.Map<ProductDTO, Product>(entity));
+            base.Insert(mapper.Map<ProductDTO, Product>(entity));
         }
 
         public IList<ProductDTO> List()
         {
-            return base.BaseList()
+            return base.List()
                 .Select(c => mapper.Map<ProductDTO>(c))
                 .ToList();
         }
 
         public IList<ProductDTO> List(Func<ProductDTO, bool> expression)
         {
-            return base.BaseList()
+            return base.List()
                 .Select(c => mapper.Map<Product, ProductDTO>(c))
                 .Where(expression)
                 .ToList();

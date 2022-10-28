@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LabsApplication.DTOModels;
 using LabsApplication.UnitOfWork.EF;
 using LabsApplication.UnitOfWork.EF.Models;
 using LabsApplication.UnitOfWork.Interfaces;
@@ -26,29 +27,29 @@ namespace LabsApplication.UnitOfWork.Repositories
 
         public void Delete(CustomerDTO entity)
         {
-            base.BaseDelete(mapper.Map<Customer>(entity));
+            base.Delete(mapper.Map<Customer>(entity));
         }
 
         public CustomerDTO Get(int id)
         {
-            return mapper.Map<CustomerDTO>(base.BaseGet(id));
+            return mapper.Map<CustomerDTO>(base.Get(id));
         }
 
         public void Insert(CustomerDTO entity)
         {
-            base.BaseInsert(mapper.Map<CustomerDTO, Customer>(entity));
+            base.Insert(mapper.Map<CustomerDTO, Customer>(entity));
         }
 
         public IList<CustomerDTO> List()
         {
-            return base.BaseList()
+            return base.List()
                 .Select(c => mapper.Map<CustomerDTO>(c))
                 .ToList();
         }
 
         public IList<CustomerDTO> List(Func<CustomerDTO, bool> expression)
         {
-            return base.BaseList()
+            return base.List()
                 .Select(c => mapper.Map<CustomerDTO>(c))
                 .Where(expression)
                 .ToList();

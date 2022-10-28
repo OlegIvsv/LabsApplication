@@ -1,4 +1,5 @@
-﻿using LabsApplication.UnitOfWork.EF;
+﻿using LabsApplication.DTOModels;
+using LabsApplication.UnitOfWork.EF;
 using LabsApplication.UnitOfWork.EF.Models;
 using LabsApplication.UnitOfWork.Interfaces;
 using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,5 @@
-﻿using LabsApplication.UnitOfWork.EF.Models;
+﻿using LabsApplication.DTOModels;
+using LabsApplication.UnitOfWork.EF.Models;
 using LabsApplication.UnitOfWork.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -21,9 +22,14 @@ namespace LabsApplication.AdoNet
 
         public override void Delete(CustomerDTO entity)
         {
+            Delete(entity.Id);
+        }
+
+        public override void Delete(int id)
+        {
             string text = "delete Customer where Id = @id";
-            var parameters = new SqlParameter[] { new SqlParameter("@id", entity.Id) };
-            Execute( text, parameters);
+            var parameters = new SqlParameter[] { new SqlParameter("@id", id) };
+            Execute(text, parameters);
         }
 
         public override CustomerDTO? Get(int id)

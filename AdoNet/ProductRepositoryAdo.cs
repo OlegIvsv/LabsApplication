@@ -1,4 +1,5 @@
-﻿using LabsApplication.UnitOfWork.EF.Models;
+﻿using LabsApplication.DTOModels;
+using LabsApplication.UnitOfWork.EF.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,19 @@ namespace LabsApplication.AdoNet
 
         public override void Delete(ProductDTO entity)
         {
+            this.Delete(entity.Id);
+        }
+
+        public override void Delete(int id)
+        {
             string text = "delete Products where Id = @id";
-            var parameters = new SqlParameter[] { new SqlParameter("@id", entity.Id) };
+            var parameters = new SqlParameter[] { new SqlParameter("@id", id) };
             Execute(text, parameters);
         }
 
         public override ProductDTO? Get(int id)
         {
-            string text = "select * from Orders where Id = @id";
+            string text = "select * from Products where Id = @id";
             var parameters = new SqlParameter[] { new("@id", id) };
 
             return ExecuteRead(text, ProductDTO.FromDataRecord, parameters)
@@ -33,10 +39,10 @@ namespace LabsApplication.AdoNet
 
         public override void Insert(ProductDTO entity)
         {
-            string text = "insert into Products( Id, Name, Description, ProductType, Price, ProductionDate, " +
-                "ExpirationDate, Amount, ProducerId)" +
-                "values(@id, @name, @description, @productType, @price, @productionDate, " +
-                "@expirationDate, @amount, @producerId)";
+            string text = "insert into Products (Name, Description, ProductType, Price, ProductionDate, " +
+                "ExpirationDate, Amount, ProducerId) " +
+                "values (@name, @description, @productType, @price, @productionDate, " +
+                "@expirationDate, @amount, @producerId) where Id = @id";
             var parameters = new SqlParameter[]
             {
                 new ("@id", entity.Id),
@@ -69,9 +75,10 @@ namespace LabsApplication.AdoNet
 
         public override void Update(ProductDTO entity)
         {
-            string text = "update into Products " +
-                "set Id = @id, Name = @name, Description = @description, ProductType = @productType, Price = @price, " +
-                "ProductionDate = @productionDate, ExpirationDate = @expirationDate, Amount = @amount, ProducerId = @producerId)";
+            string text = "update Products " +
+                "set Name = @name, Description = @description, ProductType = @productType, Price = @price, " +
+                "ProductionDate = @productionDate, ExpirationDate = @expirationDate, Amount = @amount, ProducerId = @producerId " +
+                "where Id = @id";
             var parameters = new SqlParameter[]
             {
                 new ("@id", entity.Id),

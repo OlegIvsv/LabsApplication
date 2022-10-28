@@ -1,4 +1,5 @@
-﻿using LabsApplication.UnitOfWork.EF.Models;
+﻿using LabsApplication.DTOModels;
+using LabsApplication.UnitOfWork.EF.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
