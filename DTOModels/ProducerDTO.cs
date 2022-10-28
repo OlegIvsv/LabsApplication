@@ -31,4 +31,3 @@ namespace LabsApplication.UnitOfWork.EF.Models
     }
 
 }
-}

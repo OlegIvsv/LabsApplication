@@ -15,9 +15,9 @@ namespace LabsApplication.AdoNet
     {
         private string connectionString;
 
-        public IRepository<Product> Products { get; }
+        public IRepository<ProductDTO> Products { get; }
 
-        public IRepository<Customer> Customers { get; }
+        public IRepository<CustomerDTO> Customers { get; }
 
         public AdoUnitOfWork(string connectionString)
         {

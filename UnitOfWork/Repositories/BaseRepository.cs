@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.UnitOfWork.Repositories
 {
-    public abstract class BaseRepository<TEntity>: IRepository<TEntity> where TEntity : class
+    public abstract class BaseRepository<TEntity> where TEntity : class
     {
         protected AppDbContext dbContext;
 
@@ -19,29 +19,29 @@ namespace LabsApplication.UnitOfWork.Repositories
             this.dbContext = dbContext;
         }
 
-        public void Delete(TEntity entity)
+        public void BaseDelete(TEntity entity)
         {
             dbContext.Set<TEntity>().Remove(entity);
             dbContext.SaveChanges();
         }
 
-        public TEntity Get(int id)
+        public TEntity BaseGet(int id)
         {
             return dbContext.Set<TEntity>().Find(id);
         }
 
-        public void Insert(TEntity entity)
+        public void BaseInsert(TEntity entity)
         {
             dbContext.Set<TEntity>().Add(entity);
             dbContext.SaveChanges();
         }
 
-        public IList<TEntity> List()
+        public IList<TEntity> BaseList()
         {
             return dbContext.Set<TEntity>().ToList();
         }
 
-        public IList<TEntity> List(Func<TEntity, bool> expression)
+        public IList<TEntity> BaseList(Func<TEntity, bool> expression)
         {
             return dbContext.Set<TEntity>()
                 .Where(expression)
