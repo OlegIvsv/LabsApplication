@@ -14,6 +14,10 @@ namespace LabsApplication.UnitOfWork.Interfaces
 
         IRepository<CustomerDTO> Customers { get; }
 
+        IRepository<OrderDTO> Orders { get; }
+        
+        IRepository<ProducerDTO> Producers { get; }
+
         void Complete();
     }
 }

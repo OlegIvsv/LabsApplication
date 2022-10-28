@@ -18,6 +18,10 @@ namespace LabsApplication.UnitOfWork.Repositories
 
         public IRepository<CustomerDTO> Customers{ get; }
 
+        public IRepository<ProducerDTO> Producers { get; }
+
+        public IRepository<OrderDTO> Orders { get; }
+
 
         public EFUnitOfWork(string connectionString)
         {
@@ -26,7 +30,9 @@ namespace LabsApplication.UnitOfWork.Repositories
             var options = builder.Options;
 
             this.dbContext = new AppDbContext(options);
-            this.Products = null;
+            this.Products = new ProductRepository(dbContext);
+            this.Customers = new CustomerRepository(dbContext);
+            this.Producers = new ProducerRepository(dbContext);
             this.Customers = new CustomerRepository(dbContext);
         }
 

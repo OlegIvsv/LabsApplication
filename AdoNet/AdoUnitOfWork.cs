@@ -19,11 +19,18 @@ namespace LabsApplication.AdoNet
 
         public IRepository<CustomerDTO> Customers { get; }
 
+        public IRepository<ProducerDTO> Producers { get; }
+
+        public IRepository<OrderDTO> Orders { get; }
+
+
         public AdoUnitOfWork(string connectionString)
         {
             this.connectionString = connectionString;
             this.Products = new ProductRepositoryAdo(connectionString);
             this.Customers = new CustomerRepositoryAdo(connectionString);
+            this.Orders = new OrderRepositoryAdo(connectionString);
+            this.Producers = new ProducerRepositoryAdo(connectionString);
         }
 
 
@@ -34,10 +41,12 @@ namespace LabsApplication.AdoNet
 
         public void Complete()
         {
+            // TODO: commit transaction
         }
 
         public void Dispose()
         {
+            // TODO: dispose for trunsaction and connection
         }
     }
 }

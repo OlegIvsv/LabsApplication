@@ -15,7 +15,7 @@ namespace LabsApplication
             var ob = new DbContextOptionsBuilder();
             ob.UseSqlServer(cs);
 
-            var repo = new CustomerRepository(new AppDbContext(ob.Options));
+            var repo = new AppDbContext(ob.Options);
 
             //repo.Insert(new CustomerDTO()
             //{
@@ -28,17 +28,30 @@ namespace LabsApplication
             //    Password = "11111111",
             //    ProfilePicture = null            
             //});
-            foreach (var item in new CustomerDTO[] { repo.Get(2) })
+            //foreach (var item in new CustomerDTO[] { repo.Get(2) })
+            //{
+            //    Console.WriteLine(item.Id);
+            //    Console.WriteLine(item.Firstname);
+            //    Console.WriteLine(item.Lastname);
+            //    Console.WriteLine(item.Age);
+            //    Console.WriteLine(item.Country);
+            //    Console.WriteLine(item.Gender);
+            //    Console.WriteLine(item.EmailAddress);
+            //    Console.WriteLine(item.Password);
+            //    Console.WriteLine(new String('*', 100));
+            //}
+            //repo.PaymentMethods.Add(new PaymentMethod { Commission = 0.02, Name = "NovaPay" });
+           // repo.SaveChanges();
+            //repo.Orders.Add(new Order { CreationTime = DateTime.Now, CustomerId = 1, PaymentMethodId = 1 });
+            //repo.SaveChanges();
+
+            foreach (var item in repo.Orders)
             {
                 Console.WriteLine(item.Id);
-                Console.WriteLine(item.Firstname);
-                Console.WriteLine(item.Lastname);
-                Console.WriteLine(item.Age);
-                Console.WriteLine(item.Country);
-                Console.WriteLine(item.Gender);
-                Console.WriteLine(item.EmailAddress);
-                Console.WriteLine(item.Password);
-                Console.WriteLine(new String('*', 100));
+                Console.WriteLine(item.CustomerId);
+                Console.WriteLine(item.PaymentMethodId);
+                Console.WriteLine(item.CreationTime);
+                Console.WriteLine(new String('&', 100));
             }
         }
     }
