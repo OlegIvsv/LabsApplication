@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.UnitOfWork.Repositories
 {
-    public class OrderRepository : BaseRepository<Order>, IRepository<OrderDTO>
+    public class OrderRepository : BaseRepository<Order>, IRepository<OrderData>
     {
         private Mapper mapper;
 
@@ -19,45 +19,45 @@ namespace LabsApplication.UnitOfWork.Repositories
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<OrderDTO, Order>();
-                cfg.CreateMap<Order, OrderDTO>();
+                cfg.CreateMap<OrderData, Order>();
+                cfg.CreateMap<Order, OrderData>();
             });
             mapper = new Mapper(config);
         }
 
-        public void Delete(OrderDTO entity)
+        public void Delete(OrderData entity)
         {
-            base.Delete(mapper.Map<OrderDTO, Order>(entity));
+            base.Delete(mapper.Map<OrderData, Order>(entity));
         }
 
-        public OrderDTO Get(int id)
+        public OrderData Get(int id)
         {
-            return mapper.Map<Order, OrderDTO>(base.Get(id));
+            return mapper.Map<Order, OrderData>(base.Get(id));
         }
 
-        public void Insert(OrderDTO entity)
+        public void Insert(OrderData entity)
         {
-            base.Insert(mapper.Map<OrderDTO, Order>(entity));
+            base.Insert(mapper.Map<OrderData, Order>(entity));
         }
 
-        public IList<OrderDTO> List()
+        public IList<OrderData> List()
         {
             return base.List()
-                .Select(c => mapper.Map<Order, OrderDTO>(c))
+                .Select(c => mapper.Map<Order, OrderData>(c))
                 .ToList();
         }
 
-        public IList<OrderDTO> List(Func<OrderDTO, bool> expression)
+        public IList<OrderData> List(Func<OrderData, bool> expression)
         {
             return base.List()
-                .Select(c => mapper.Map<Order, OrderDTO>(c))
+                .Select(c => mapper.Map<Order, OrderData>(c))
                 .Where(expression)
                 .ToList();
         }
 
-        public void Update(OrderDTO entity)
+        public void Update(OrderData entity)
         {
-            base.Update(mapper.Map<OrderDTO, Order>(entity));
+            base.Update(mapper.Map<OrderData, Order>(entity));
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.DTOModels
 {
-    public class PaymentMethodDTO
+    public class PaymentMethodData
     {
         public int Id { get; set; }
 

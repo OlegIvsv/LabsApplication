@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.AdoNet
 {
-    internal class ProducerRepositoryAdo : BaseRepositoryAdo<ProducerDTO>
+    internal class ProducerRepositoryAdo : BaseRepositoryAdo<ProducerData>
     {
         public ProducerRepositoryAdo(string connectionString) : base(connectionString)
         {
         }
 
 
-        public override void Delete(ProducerDTO entity)
+        public override void Delete(ProducerData entity)
         {
             this.Delete(entity.Id);
         }
@@ -28,16 +28,16 @@ namespace LabsApplication.AdoNet
             Execute(text, parameters);
         }
 
-        public override ProducerDTO? Get(int id)
+        public override ProducerData? Get(int id)
         {
             string text = "select * from Producers where Id = @id";
             var parameters = new SqlParameter[] { new("@id", id) };
 
-            return ExecuteRead(text, ProducerDTO.FromDataRecord, parameters)
+            return ExecuteRead(text, ProducerData.FromDataRecord, parameters)
                 .FirstOrDefault();
         }
 
-        public override void Insert(ProducerDTO entity)
+        public override void Insert(ProducerData entity)
         {
             string text = "insert into Producers( Id, Name, Country Description) " +
                 "values(@id, @name,@country, @description)";
@@ -52,21 +52,21 @@ namespace LabsApplication.AdoNet
             Execute(text, parameters);
         }
 
-        public override IList<ProducerDTO> List()
+        public override IList<ProducerData> List()
         {
             string text = "select * from Producers;";
-            return ExecuteRead(text, ProducerDTO.FromDataRecord)
+            return ExecuteRead(text, ProducerData.FromDataRecord)
              .ToList();
         }
 
-        public override IList<ProducerDTO> List(Func<ProducerDTO, bool> expression)
+        public override IList<ProducerData> List(Func<ProducerData, bool> expression)
         {
             string text = "select * from Producers;";
-            return ExecuteRead(text, ProducerDTO.FromDataRecord, expression)
+            return ExecuteRead(text, ProducerData.FromDataRecord, expression)
              .ToList();
         }
 
-        public override void Update(ProducerDTO entity)
+        public override void Update(ProducerData entity)
         {
             string text = "update into Products " +
                 "set Id = @id, Name = @name,Country = @country, Description = @description)";

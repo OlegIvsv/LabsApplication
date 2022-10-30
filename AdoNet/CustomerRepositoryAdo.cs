@@ -13,14 +13,14 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace LabsApplication.AdoNet
 {
-    public class CustomerRepositoryAdo : BaseRepositoryAdo<CustomerDTO>
+    public class CustomerRepositoryAdo : BaseRepositoryAdo<CustomerData>
     {
         public CustomerRepositoryAdo(string connectionString) : base(connectionString)
         {
         }
 
 
-        public override void Delete(CustomerDTO entity)
+        public override void Delete(CustomerData entity)
         {
             Delete(entity.Id);
         }
@@ -32,16 +32,16 @@ namespace LabsApplication.AdoNet
             Execute(text, parameters);
         }
 
-        public override CustomerDTO? Get(int id)
+        public override CustomerData? Get(int id)
         {
             string text = "select * from Customers where Id = @id";
             var parameters = new SqlParameter[] { new("@id", id) };
 
-            return ExecuteRead(text, CustomerDTO.FromDataRecord, parameters)
+            return ExecuteRead(text, CustomerData.FromDataRecord, parameters)
                 .FirstOrDefault();
         }
 
-        public override void Insert(CustomerDTO entity)
+        public override void Insert(CustomerData entity)
         {
             string text = "insert into Customer" +
                 "(Id, Firstname, Lastname, Age, Country, Gender, EmailAddress, Password, ProfilePicture) " +
@@ -62,21 +62,21 @@ namespace LabsApplication.AdoNet
             Execute(text, parameters);
         }
 
-        public override IList<CustomerDTO> List()
+        public override IList<CustomerData> List()
         {
             string text = "select * from Customers;";
-            return ExecuteRead(text, CustomerDTO.FromDataRecord)
+            return ExecuteRead(text, CustomerData.FromDataRecord)
              .ToList();
         }
 
-        public override IList<CustomerDTO> List(Func<CustomerDTO, bool> expression)
+        public override IList<CustomerData> List(Func<CustomerData, bool> expression)
         {
             string text = "select * from Customers;";
-            return ExecuteRead(text, CustomerDTO.FromDataRecord, expression)
+            return ExecuteRead(text, CustomerData.FromDataRecord, expression)
              .ToList();
         }
 
-        public override void Update(CustomerDTO entity)
+        public override void Update(CustomerData entity)
         {
             string text = "update into Customer " +
                 "set Id = @id, Firstname = @firstname, Lastname = @lastname, Age = @age, Country = @country, " +

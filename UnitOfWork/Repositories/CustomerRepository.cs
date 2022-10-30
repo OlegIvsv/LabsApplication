@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.UnitOfWork.Repositories
 {
-    public class CustomerRepository : BaseRepository<Customer>, IRepository<CustomerDTO>
+    public class CustomerRepository : BaseRepository<Customer>, IRepository<CustomerData>
     {
         private Mapper mapper;
 
@@ -19,43 +19,43 @@ namespace LabsApplication.UnitOfWork.Repositories
         {
             var config = new MapperConfiguration( cfg => 
                 {
-                    cfg.CreateMap<CustomerDTO, Customer>();
-                    cfg.CreateMap<Customer, CustomerDTO>(); 
+                    cfg.CreateMap<CustomerData, Customer>();
+                    cfg.CreateMap<Customer, CustomerData>(); 
                 });
             mapper = new Mapper(config);
         }
 
-        public void Delete(CustomerDTO entity)
+        public void Delete(CustomerData entity)
         {
             base.Delete(mapper.Map<Customer>(entity));
         }
 
-        public CustomerDTO Get(int id)
+        public CustomerData Get(int id)
         {
-            return mapper.Map<CustomerDTO>(base.Get(id));
+            return mapper.Map<CustomerData>(base.Get(id));
         }
 
-        public void Insert(CustomerDTO entity)
+        public void Insert(CustomerData entity)
         {
-            base.Insert(mapper.Map<CustomerDTO, Customer>(entity));
+            base.Insert(mapper.Map<CustomerData, Customer>(entity));
         }
 
-        public IList<CustomerDTO> List()
+        public IList<CustomerData> List()
         {
             return base.List()
-                .Select(c => mapper.Map<CustomerDTO>(c))
+                .Select(c => mapper.Map<CustomerData>(c))
                 .ToList();
         }
 
-        public IList<CustomerDTO> List(Func<CustomerDTO, bool> expression)
+        public IList<CustomerData> List(Func<CustomerData, bool> expression)
         {
             return base.List()
-                .Select(c => mapper.Map<CustomerDTO>(c))
+                .Select(c => mapper.Map<CustomerData>(c))
                 .Where(expression)
                 .ToList();
         }
 
-        public void Update(CustomerDTO entity)
+        public void Update(CustomerData entity)
         {
             base.Update(mapper.Map<Customer>(entity));
         }

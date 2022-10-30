@@ -11,7 +11,7 @@ using LabsApplication.DTOModels;
 
 namespace LabsApplication.UnitOfWork.Repositories
 {
-    public class ProducerRepository : BaseRepository<Producer>, IRepository<ProducerDTO>
+    public class ProducerRepository : BaseRepository<Producer>, IRepository<ProducerData>
     {
         private Mapper mapper;
 
@@ -19,47 +19,47 @@ namespace LabsApplication.UnitOfWork.Repositories
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ProducerDTO, Producer>();
-                cfg.CreateMap<Producer, ProducerDTO>();
+                cfg.CreateMap<ProducerData, Producer>();
+                cfg.CreateMap<Producer, ProducerData>();
             });
             mapper = new Mapper(config);
         }
 
 
 
-        public void Delete(ProducerDTO entity)
+        public void Delete(ProducerData entity)
         {
             base.Delete(mapper.Map<Producer>(entity));
         }
 
-        public ProducerDTO Get(int id)
+        public ProducerData Get(int id)
         {
-            return mapper.Map<ProducerDTO>(base.Get(id));
+            return mapper.Map<ProducerData>(base.Get(id));
         }
 
-        public void Insert(ProducerDTO entity)
+        public void Insert(ProducerData entity)
         {
-            base.Insert(mapper.Map<ProducerDTO, Producer>(entity));
+            base.Insert(mapper.Map<ProducerData, Producer>(entity));
         }
 
-        public IList<ProducerDTO> List()
+        public IList<ProducerData> List()
         {
             return base.List()
-                .Select(c => mapper.Map<ProducerDTO>(c))
+                .Select(c => mapper.Map<ProducerData>(c))
                 .ToList();
         }
 
-        public IList<ProducerDTO> List(Func<ProducerDTO, bool> expression)
+        public IList<ProducerData> List(Func<ProducerData, bool> expression)
         {
             return base.List()
-                .Select(c => mapper.Map<Producer, ProducerDTO>(c))
+                .Select(c => mapper.Map<Producer, ProducerData>(c))
                 .Where(expression)
                 .ToList();
         }
 
-        public void Update(ProducerDTO entity)
+        public void Update(ProducerData entity)
         {
-            base.Update(mapper.Map<ProducerDTO, Producer>(entity));
+            base.Update(mapper.Map<ProducerData, Producer>(entity));
         }
     }
 }

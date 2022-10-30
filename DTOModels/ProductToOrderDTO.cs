@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.DTOModels
 {
-    public class ProductToOrderDTO
+    public class ProductToOrderData
     {
         public int OrderId { get; set; }
 

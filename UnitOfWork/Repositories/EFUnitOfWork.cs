@@ -15,13 +15,13 @@ namespace LabsApplication.UnitOfWork.Repositories
     {
         private AppDbContext dbContext;
 
-        public IRepository<ProductDTO> Products { get; }
+        public IRepository<ProductData> Products { get; }
 
-        public IRepository<CustomerDTO> Customers{ get; }
+        public IRepository<CustomerData> Customers{ get; }
 
-        public IRepository<ProducerDTO> Producers { get; }
+        public IRepository<ProducerData> Producers { get; }
 
-        public IRepository<OrderDTO> Orders { get; }
+        public IRepository<OrderData> Orders { get; }
 
 
         public EFUnitOfWork(string connectionString)

@@ -11,13 +11,13 @@ namespace LabsApplication.UnitOfWork.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<ProductDTO> Products{ get; }
+        IRepository<ProductData> Products{ get; }
 
-        IRepository<CustomerDTO> Customers { get; }
+        IRepository<CustomerData> Customers { get; }
 
-        IRepository<OrderDTO> Orders { get; }
+        IRepository<OrderData> Orders { get; }
         
-        IRepository<ProducerDTO> Producers { get; }
+        IRepository<ProducerData> Producers { get; }
 
         void Complete();
     }

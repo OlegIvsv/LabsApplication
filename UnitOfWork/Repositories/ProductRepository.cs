@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.UnitOfWork.Repositories
 {
-    public class ProductRepository : BaseRepository<Product>, IRepository<ProductDTO>
+    public class ProductRepository : BaseRepository<Product>, IRepository<ProductData>
     {
         private Mapper mapper;
 
@@ -20,14 +20,14 @@ namespace LabsApplication.UnitOfWork.Repositories
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ProductDTO, Product>();
-                cfg.CreateMap<Product, ProductDTO>();
+                cfg.CreateMap<ProductData, Product>();
+                cfg.CreateMap<Product, ProductData>();
             });
             mapper = new Mapper(config);
         }
 
 
-        public void Delete(ProductDTO entity)
+        public void Delete(ProductData entity)
         {
             base.Delete(mapper.Map<Product>(entity));
         }
@@ -37,34 +37,34 @@ namespace LabsApplication.UnitOfWork.Repositories
             base.Delete(id);
         }
 
-        public ProductDTO Get(int id)
+        public ProductData Get(int id)
         {
-            return mapper.Map<ProductDTO>(base.Get(id));
+            return mapper.Map<ProductData>(base.Get(id));
         }
 
-        public void Insert(ProductDTO entity)
+        public void Insert(ProductData entity)
         {
-            base.Insert(mapper.Map<ProductDTO, Product>(entity));
+            base.Insert(mapper.Map<ProductData, Product>(entity));
         }
 
-        public IList<ProductDTO> List()
+        public IList<ProductData> List()
         {
             return base.List()
-                .Select(c => mapper.Map<ProductDTO>(c))
+                .Select(c => mapper.Map<ProductData>(c))
                 .ToList();
         }
 
-        public IList<ProductDTO> List(Func<ProductDTO, bool> expression)
+        public IList<ProductData> List(Func<ProductData, bool> expression)
         {
             return base.List()
-                .Select(c => mapper.Map<Product, ProductDTO>(c))
+                .Select(c => mapper.Map<Product, ProductData>(c))
                 .Where(expression)
                 .ToList();
         }
 
-        public void Update(ProductDTO entity)
+        public void Update(ProductData entity)
         {
-            base.Update(mapper.Map<ProductDTO, Product>(entity));
+            base.Update(mapper.Map<ProductData, Product>(entity));
         }
     }
 }

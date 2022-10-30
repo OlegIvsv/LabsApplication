@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.DTOModels
 { 
-    public class ProductDTO
+    public class ProductData
     {
         public int Id { get; set; }
 
@@ -27,9 +27,9 @@ namespace LabsApplication.DTOModels
 
         public int ProducerId { get; set; }
 
-        public static ProductDTO FromDataRecord(IDataRecord row)
+        public static ProductData FromDataRecord(IDataRecord row)
         {
-            return new ProductDTO
+            return new ProductData
             {
                 Id = (int)row["Id"],
                 Name = (string)row["Name"],

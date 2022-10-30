@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.AdoNet
 {
-    internal class OrderRepositoryAdo : BaseRepositoryAdo<OrderDTO>
+    internal class OrderRepositoryAdo : BaseRepositoryAdo<OrderData>
     {
         public OrderRepositoryAdo(string connectionString) : base(connectionString)
         {
         }
 
 
-        public override void Delete(OrderDTO entity)
+        public override void Delete(OrderData entity)
         {
             Delete(entity.Id);
         }
@@ -28,16 +28,16 @@ namespace LabsApplication.AdoNet
             Execute(text, parameters);
         }
 
-        public override OrderDTO? Get(int id)
+        public override OrderData? Get(int id)
         {
             string text = "select * from Orders where Id = @id";
             var parameters = new SqlParameter[] { new("@id", id) };
 
-            return ExecuteRead(text, OrderDTO.FromDataRecord, parameters)
+            return ExecuteRead(text, OrderData.FromDataRecord, parameters)
                 .FirstOrDefault();
         }
 
-        public override void Insert(OrderDTO entity)
+        public override void Insert(OrderData entity)
         {
             string text = "insert into Orders(Id, CreationTime, CustomerId, PaymentMethodId) " +
                 "values(@id, @creationTime, @customerId, @paymentMethodId)";
@@ -52,21 +52,21 @@ namespace LabsApplication.AdoNet
             Execute(text, parameters);
         }
 
-        public override IList<OrderDTO> List()
+        public override IList<OrderData> List()
         {
             string text = "select * from Orders;";
-            return ExecuteRead(text, OrderDTO.FromDataRecord)
+            return ExecuteRead(text, OrderData.FromDataRecord)
              .ToList();
         }
 
-        public override IList<OrderDTO> List(Func<OrderDTO, bool> expression)
+        public override IList<OrderData> List(Func<OrderData, bool> expression)
         {
             string text = "select * from Customers;";
-            return ExecuteRead(text, OrderDTO.FromDataRecord, expression)
+            return ExecuteRead(text, OrderData.FromDataRecord, expression)
              .ToList();
         }
 
-        public override void Update(OrderDTO entity)
+        public override void Update(OrderData entity)
         {
             string text = "update into Customer " +
                 "set Id = @id, CreationTime = @creationTime, CustomerId = @customerId, PaymentMethodId = @paymentMethodId)";

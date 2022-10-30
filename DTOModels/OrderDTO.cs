@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.DTOModels
 {
-    public class OrderDTO
+    public class OrderData
     {
         public int Id { get; set; }
 
@@ -17,9 +17,9 @@ namespace LabsApplication.DTOModels
 
         public int PaymentMethodId { get; set; }
 
-        public static OrderDTO FromDataRecord(IDataRecord row)
+        public static OrderData FromDataRecord(IDataRecord row)
         {
-            return new OrderDTO
+            return new OrderData
             {
                 Id = (int)row["Id"],
                 CreationTime = (DateTime)row["CreationTime"],
