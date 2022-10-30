@@ -12,7 +12,7 @@ using LabsApplication.DTOModels;
 
 namespace LabsApplication.AdoNet
 {
-    public class AdoUnitOfWork : IUnitOfWork
+    public class AdoDatabase : IAppDatabase
     {
         private string connectionString;
 
@@ -25,7 +25,7 @@ namespace LabsApplication.AdoNet
         public IRepository<OrderData> Orders { get; }
 
 
-        public AdoUnitOfWork(string connectionString)
+        public AdoDatabase(string connectionString)
         {
             this.connectionString = connectionString;
             this.Products = new ProductRepositoryAdo(connectionString);

@@ -18,6 +18,8 @@ namespace LabsApplication.AdoNet
         protected readonly string connectionString;
         protected SqlConnection connection;
 
+
+
         public BaseRepositoryAdo(string connectionString) 
         {
             this.connectionString = connectionString;
@@ -84,15 +86,18 @@ namespace LabsApplication.AdoNet
             return result;
         }
 
-
-
-
         public abstract void Delete(TEntity entity);
+
         public abstract void Delete(int id);
-        public abstract TEntity Get(int id);
+
+        public abstract TEntity Get(int id); 
+
         public abstract void Insert(TEntity entity);
+
         public abstract IList<TEntity> List();
+
         public abstract IList<TEntity> List(Func<TEntity, bool> expression);
+
         public abstract void Update(TEntity entity);
     }
 }

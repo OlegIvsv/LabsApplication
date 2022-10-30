@@ -22,18 +22,16 @@ namespace LabsApplication.UnitOfWork.Repositories
         public void Delete(TEntity entity)
         {
             dbContext.Set<TEntity>().Remove(entity);
-            dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var entity = dbContext.Set<TEntity>().Find(id);
-            if(entity != null)
+            if(entity is not null)
                 dbContext.Set<TEntity>().Remove(entity);
-            dbContext.SaveChanges();
         }
 
-        public TEntity Get(int id)
+        public TEntity? Get(int id)
         {
             return dbContext.Set<TEntity>().Find(id);
         }
@@ -41,7 +39,6 @@ namespace LabsApplication.UnitOfWork.Repositories
         public void Insert(TEntity entity)
         {
             dbContext.Set<TEntity>().Add(entity);
-            dbContext.SaveChanges();
         }
 
         public IList<TEntity> List()
@@ -59,7 +56,6 @@ namespace LabsApplication.UnitOfWork.Repositories
         public void Update(TEntity entity)
         {
             dbContext.Entry<TEntity>(entity).State = EntityState.Modified;
-            dbContext.SaveChanges();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace LabsApplication.AdoNet
             string text = "insert into Products (Name, Description, ProductType, Price, ProductionDate, " +
                 "ExpirationDate, Amount, ProducerId) " +
                 "values (@name, @description, @productType, @price, @productionDate, " +
-                "@expirationDate, @amount, @producerId) where Id = @id";
+                "@expirationDate, @amount, @producerId)";
             var parameters = new SqlParameter[]
             {
                 new ("@id", entity.Id),

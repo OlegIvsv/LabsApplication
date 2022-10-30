@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.UnitOfWork.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IAppDatabase : IDisposable
     {
         IRepository<ProductData> Products{ get; }
 

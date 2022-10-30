@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LabsApplication.UnitOfWork.Repositories
 {
-    public class EFUnitOfWork : IUnitOfWork
+    public class EfDatabase : IAppDatabase
     {
         private AppDbContext dbContext;
 
@@ -24,7 +24,7 @@ namespace LabsApplication.UnitOfWork.Repositories
         public IRepository<OrderData> Orders { get; }
 
 
-        public EFUnitOfWork(string connectionString)
+        public EfDatabase(string connectionString)
         {
             DbContextOptionsBuilder builder = new();
             builder.UseSqlServer(connectionString);
