@@ -23,7 +23,7 @@ namespace LabsApplication.AdoNet
 
         public override void Delete(int id)
         {
-            string text = "delete Products where Id = @id";
+            string text = "DeleteProduct";
             var parameters = new SqlParameter[] { new SqlParameter("@id", id) };
             Execute(text, parameters);
         }
@@ -39,13 +39,9 @@ namespace LabsApplication.AdoNet
 
         public override void Insert(ProductData entity)
         {
-            string text = "insert into Products (Name, Description, ProductType, Price, ProductionDate, " +
-                "ExpirationDate, Amount, ProducerId) " +
-                "values (@name, @description, @productType, @price, @productionDate, " +
-                "@expirationDate, @amount, @producerId)";
+            string text = "AddProduct";
             var parameters = new SqlParameter[]
             {
-                new ("@id", entity.Id),
                 new ("@name", entity.Name),
                 new ("@description", entity.Description),
                 new ("@productType", entity.ProductType),
@@ -55,6 +51,7 @@ namespace LabsApplication.AdoNet
                 new ("@amount", entity.Amount), 
                 new ("@producerId", entity.ProducerId)
             };
+            HandleNulls(parameters);
 
             Execute(text, parameters);
         }
@@ -75,10 +72,7 @@ namespace LabsApplication.AdoNet
 
         public override void Update(ProductData entity)
         {
-            string text = "update Products " +
-                "set Name = @name, Description = @description, ProductType = @productType, Price = @price, " +
-                "ProductionDate = @productionDate, ExpirationDate = @expirationDate, Amount = @amount, ProducerId = @producerId " +
-                "where Id = @id";
+            string text = "UpdateProduct";
             var parameters = new SqlParameter[]
             {
                 new ("@id", entity.Id),
@@ -91,6 +85,7 @@ namespace LabsApplication.AdoNet
                 new ("@amount", entity.Amount),
                 new ("@producerId", entity.ProducerId)
             };
+            HandleNulls(parameters);
 
             Execute(text, parameters);
         }

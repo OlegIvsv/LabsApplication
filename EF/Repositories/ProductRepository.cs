@@ -64,7 +64,9 @@ namespace LabsApplication.UnitOfWork.Repositories
 
         public void Update(ProductData entity)
         {
-            base.Update(mapper.Map<ProductData, Product>(entity));
+            var entityToUpdate = dbContext.Products.Find(entity.Id);
+            mapper.Map(entity, entityToUpdate);
+            base.Update(entityToUpdate);
         }
     }
 }

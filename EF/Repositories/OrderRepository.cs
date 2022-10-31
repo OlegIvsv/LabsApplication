@@ -57,7 +57,9 @@ namespace LabsApplication.UnitOfWork.Repositories
 
         public void Update(OrderData entity)
         {
-            base.Update(mapper.Map<OrderData, Order>(entity));
+            var entityToUpdate = dbContext.Orders.Find(entity.Id);
+            mapper.Map(entity, entityToUpdate);
+            base.Update(entityToUpdate);
         }
     }
 }

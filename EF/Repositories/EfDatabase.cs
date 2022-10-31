@@ -34,7 +34,7 @@ namespace LabsApplication.UnitOfWork.Repositories
             this.Products = new ProductRepository(dbContext);
             this.Customers = new CustomerRepository(dbContext);
             this.Producers = new ProducerRepository(dbContext);
-            this.Customers = new CustomerRepository(dbContext);
+            this.Orders = new OrderRepository(dbContext);
         }
 
 

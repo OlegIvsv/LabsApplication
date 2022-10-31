@@ -27,7 +27,7 @@ namespace LabsApplication.AdoNet
 
         public override void Delete(int id)
         {
-            string text = "delete Customer where Id = @id";
+            string text = "DeleteCustomer";
             var parameters = new SqlParameter[] { new SqlParameter("@id", id) };
             Execute(text, parameters);
         }
@@ -43,12 +43,9 @@ namespace LabsApplication.AdoNet
 
         public override void Insert(CustomerData entity)
         {
-            string text = "insert into Customer" +
-                "(Id, Firstname, Lastname, Age, Country, Gender, EmailAddress, Password, ProfilePicture) " +
-                "values(@id, @firstname, @lastname, @age, @country, @gender, @emailAddress, @password, @profilePicture)";
+            string text = "AddCustomer";
             var parameters = new SqlParameter[]
             {
-                new ("@id", entity.Id),
                 new ("@firstname", entity.Firstname),
                 new ("@lastname", entity.Lastname),
                 new ("@age", entity.Age),
@@ -58,6 +55,8 @@ namespace LabsApplication.AdoNet
                 new ("@password", entity.Password),
                 new ("@profilePicture", entity.ProfilePicture)
             };
+
+            HandleNulls(parameters);
 
             Execute(text, parameters);
         }
@@ -78,9 +77,7 @@ namespace LabsApplication.AdoNet
 
         public override void Update(CustomerData entity)
         {
-            string text = "update into Customer " +
-                "set Id = @id, Firstname = @firstname, Lastname = @lastname, Age = @age, Country = @country, " +
-                "Gender = @gender, EmailAddress = @emailAddress, Password = @password, ProfilePicture = @profilePicture)";
+            string text = "UpdateCustomer";
             var parameters = new SqlParameter[]
             {
                 new ("@id", entity.Id),
@@ -93,6 +90,8 @@ namespace LabsApplication.AdoNet
                 new ("@password", entity.Password),
                 new ("@profilePicture", entity.ProfilePicture)
             };
+
+            HandleNulls(parameters);
 
             Execute(text, parameters);
         }

@@ -3,6 +3,7 @@ using LabsApplication.UnitOfWork.EF.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace LabsApplication.AdoNet
 
         public override void Delete(int id)
         {
-            string text = "delete Customer where Id = @id";
+            string text = "DeleteOrder";
             var parameters = new SqlParameter[] { new SqlParameter("@id", id) };
             Execute(text, parameters);
         }
@@ -39,15 +40,14 @@ namespace LabsApplication.AdoNet
 
         public override void Insert(OrderData entity)
         {
-            string text = "insert into Orders(Id, CreationTime, CustomerId, PaymentMethodId) " +
-                "values(@id, @creationTime, @customerId, @paymentMethodId)";
+            string text = "AddOrder";
             var parameters = new SqlParameter[]
             {
-                new ("@id", entity.Id),
-                new ("@creationTime", entity.CreationTime),
+                new ("@creationTime", entity.CreationTime) {SqlDbType = SqlDbType.DateTime2},
                 new ("@customerId", entity.CustomerId),
                 new ("@paymentMethodId", entity.PaymentMethodId)
             };
+            HandleNulls(parameters);
 
             Execute(text, parameters);
         }
@@ -68,15 +68,15 @@ namespace LabsApplication.AdoNet
 
         public override void Update(OrderData entity)
         {
-            string text = "update into Customer " +
-                "set Id = @id, CreationTime = @creationTime, CustomerId = @customerId, PaymentMethodId = @paymentMethodId)";
+            string text = "UpdateOrder";
             var parameters = new SqlParameter[]
             {
                 new ("@id", entity.Id),
-                new ("@creationTime", entity.CreationTime),
+                new ("@creationTime", entity.CreationTime.ToString()) { SqlDbType = SqlDbType.DateTime2 },
                 new ("@customerId", entity.CustomerId),
                 new ("@paymentMethodId", entity.PaymentMethodId)
             };
+            HandleNulls(parameters);
 
             Execute(text, parameters);
         }

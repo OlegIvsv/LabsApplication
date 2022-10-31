@@ -19,7 +19,6 @@ namespace LabsApplication.AdoNet
         protected SqlConnection connection;
 
 
-
         public BaseRepositoryAdo(string connectionString) 
         {
             this.connectionString = connectionString;
@@ -30,13 +29,20 @@ namespace LabsApplication.AdoNet
         {
             connection.Open();
 
-            var command = new SqlCommand(text, connection);
-            if (parameters != null)
-                command.Parameters.AddRange(parameters);
-            int result = command.ExecuteNonQuery();
+            try
+            {
+                var command = new SqlCommand(text, connection);
+                command.CommandType = CommandType.StoredProcedure;
+                if (parameters != null)
+                    command.Parameters.AddRange(parameters);
 
-            connection.Close();
-            return result;
+                int result = command.ExecuteNonQuery();
+                return result;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         protected IEnumerable<TEntity> ExecuteRead(string text, Func<IDataRecord, TEntity> converter, 
@@ -44,22 +50,27 @@ namespace LabsApplication.AdoNet
         {
             connection.Open();
 
-            var command = new SqlCommand(text, connection);
-            if (parameters != null)
-                command.Parameters.AddRange(parameters);
-
-            var result = new List<TEntity>();
-            using(var reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
-                {
-                    TEntity item = converter(reader);
-                    result.Add(item);
-                }
-            }
+                var command = new SqlCommand(text, connection);
+                if (parameters != null)
+                    command.Parameters.AddRange(parameters);
 
-            connection.Close();
-            return result;
+                var result = new List<TEntity>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TEntity item = converter(reader);
+                        result.Add(item);
+                    }
+                }
+                return result;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         protected IEnumerable<TEntity> ExecuteRead(string text, Func<IDataRecord, TEntity> converter, 
@@ -67,24 +78,39 @@ namespace LabsApplication.AdoNet
         {
             connection.Open();
 
-            var command = new SqlCommand(text, connection);
-            if (parameters != null)
-                command.Parameters.AddRange(parameters);
-
-            var result = new List<TEntity>();
-            using (var reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
-                {
-                    TEntity item = converter(reader);
-                    if(predicate(item))
-                        result.Add(item);
-                }
-            }
+                var command = new SqlCommand(text, connection);
+                if (parameters != null)
+                    command.Parameters.AddRange(parameters);
 
-            connection.Close();
-            return result;
+                var result = new List<TEntity>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TEntity item = converter(reader);
+                        if (predicate(item))
+                            result.Add(item);
+                    }
+                }
+
+                return result;
+            }
+            finally 
+            { 
+                connection.Close(); 
+            }
         }
+
+        protected void HandleNulls(SqlParameter[] parameters)
+        {
+            foreach (var p in parameters)
+                if (p.Value is null)
+                    p.Value = DBNull.Value;
+        }
+
+
 
         public abstract void Delete(TEntity entity);
 

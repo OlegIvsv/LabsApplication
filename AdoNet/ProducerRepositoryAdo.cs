@@ -23,7 +23,7 @@ namespace LabsApplication.AdoNet
 
         public override void Delete(int id)
         {
-            string text = "delete Producers where Id = @id";
+            string text = "DeleteProducer";
             var parameters = new SqlParameter[] { new SqlParameter("@id", id) };
             Execute(text, parameters);
         }
@@ -39,15 +39,14 @@ namespace LabsApplication.AdoNet
 
         public override void Insert(ProducerData entity)
         {
-            string text = "insert into Producers( Id, Name, Country Description) " +
-                "values(@id, @name,@country, @description)";
+            string text = "AddProducer";
             var parameters = new SqlParameter[]
             {
-                new ("@id", entity.Id),
                 new ("@name", entity.Name),
                 new ("@country", entity.Country),
                 new ("@description", entity.Description),
             };
+            HandleNulls(parameters);
 
             Execute(text, parameters);
         }
@@ -68,8 +67,7 @@ namespace LabsApplication.AdoNet
 
         public override void Update(ProducerData entity)
         {
-            string text = "update into Products " +
-                "set Id = @id, Name = @name,Country = @country, Description = @description)";
+            string text = "UpdateProducer";
             var parameters = new SqlParameter[]
             {
                 new ("@id", entity.Id),
@@ -77,6 +75,7 @@ namespace LabsApplication.AdoNet
                 new ("@country", entity.Country),
                 new ("@description", entity.Description),
             };
+            HandleNulls(parameters);
 
             Execute(text, parameters);
         }
